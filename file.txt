@@ -1,0 +1,51 @@
+=> Install the mysql client in the host system
+-> yum install -y mysql [installing mysql client]
+
+=> Command to start docker in the machine
+-> systemctl start docker
+
+=> Command to pull mysql image from dockerhub
+-> docker pull mysql
+
+=> Command to pull wordpress image from dockerhub
+-> docker pull wordpress
+
+=> Creating a mysql container from the image that we downloaded
+-> docker run --name container1 -e MYSQL_ROOT_PASSWORD=passwd -d mysql
+
+=> Check whether the container is running or not
+-> docker ps 
+
+=> Command to know the details of the container such as IP address
+-> docker inspect test1-mysql 
+
+=> Connect to the MySQL container instance via the MySQL client and log in
+-> mysql -h <ip address> -p 
+
+=> To list databases in the container
+-> show databases;
+
+=> create wordpress database
+
+=> To create database with name "wordpress"
+-> CREATE USER 'wordpress'@'%' IDENTIFIED BY 'mypassword';
+
+=> Command to grant the user full access to the database
+-> GRANT ALL PRIVILEGES ON * . * TO 'wordpress'@'%'
+
+=> This command creates a wordpress container and links it to the mysql and can be found in the wordpress page in dockerhub.
+-> docker run -d --name container2 --link container1:mysql -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=mypassword -p 80:80 wordpress
+
+=> Checking whether the container is running or not
+-> docker ps
+
+=> To get the IP address of the container2
+-> docker inspect container2
+
+=> To install the elinks in the host machine
+-> yum install elinks
+
+=> To connect to the wordpress instance
+-> elinks http://<ipaddress>  
+
+-> stop all the resources
